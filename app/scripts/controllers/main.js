@@ -17,8 +17,9 @@ angular.module('diCastApp')
         console.error('couldn\'t fetch channels: ', reason)
       })
 
-    $scope.channel = {
-      key: null
+    $scope.player = {
+      channel: null,
+      volume: 0.5,
     };
 
     var initializeCastApi = function () {
@@ -75,7 +76,7 @@ angular.module('diCastApp')
       console.error('onMediaError: ', reason)
     }
 
-    $scope.$watch('channel.key', function (newVal) {
+    $scope.$watch('player.channel', function (newVal) {
       if (newVal) {
         var url = 'http://pub1.di.fm/di_' + newVal
           , mediaInfo = new chrome.cast.media.MediaInfo(url, 'audio/mpeg')

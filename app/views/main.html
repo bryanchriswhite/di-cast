@@ -1,4 +1,4 @@
-<ui-select ng-model="channel.key">
+<ui-select ng-model="player.channel">
   <ui-select-match placeholder="Channel Name">
     {{$select.selected.name}}
   </ui-select-match>
@@ -7,6 +7,6 @@
   </ui-select-choices>
 </ui-select>
 <div id="hero">
-  <audio ng-src="{{audioSrc}}" controls autoplay></audio>
+  <audio ng-src="{{audioSrc}}" controls autoplay volume="{{player.volume}}"></audio>
   <img src="http://placehold.it/350x350" id="channel-art" alt="channel art"/>
 </div>
