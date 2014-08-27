@@ -8,19 +8,12 @@
  * Controller of the diCastApp
  */
 angular.module('diCastApp')
-  .controller('MainCtrl', function ($scope) {
-    $scope.stations = [
-      {
-        name: 'Chillstep',
-        key: 'chillstep',
-      },
-      {
-        name: 'Epic Trance',
-        key: 'epictrance',
-      },
-      {
-        name: 'Bass And Jackin\' House',
-        key: 'baseandjackinhouse',
-      },
-    ];
+  .controller('MainCtrl', function ($scope, channelService) {
+    channelService.list()
+      .success(function (channels) {
+        $scope.channels = channels;
+      })
+      .error(function (reason) {
+        console.error('couldn\'t fetch channels: ', reason)
+      })
   });
