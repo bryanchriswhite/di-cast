@@ -8,7 +8,7 @@
  * Controller of the diCastApp
  */
 angular.module('diCastApp')
-  .controller('MainCtrl', function ($scope, $timeout, channelService) {
+  .controller('MainCtrl', function ($scope, $timeout, $sce, channelService) {
     channelService.list()
       .success(function (channels) {
         $scope.channels = channels;
@@ -82,9 +82,13 @@ angular.module('diCastApp')
           , request = new chrome.cast.media.LoadRequest(mediaInfo)
           ;
 
-        $scope.session.loadMedia(request,
-          onMediaDiscovered.bind(this, 'loadMedia'),
-          onMediaError);
+        if ($scope.session) {
+          $scope.session.loadMedia(request,
+            onMediaDiscovered.bind(this, 'loadMedia'),
+            onMediaError);
+        }
+
+        $scope.audioSrc = $sce.trustAsResourceUrl(url);
       }
     })
   });
