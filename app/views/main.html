@@ -1,8 +1,8 @@
-<ui-select ng-model="station">
+<ui-select ng-model="channel.key">
   <ui-select-match placeholder="Channel Name">
     {{$select.selected.name}}
   </ui-select-match>
-  <ui-select-choices repeat="channel in channels | filter: $select.search">
+  <ui-select-choices repeat="channel.key as channel in channels | filter: $select.search">
     <span ng-bind-html="channel.name | highlight: $select.search"></span>
   </ui-select-choices>
 </ui-select>
