@@ -23,7 +23,7 @@ angular.module('diCastApp')
     };
 
     var initializeCastApi = function () {
-      var sessionRequest = new chrome.cast.SessionRequest('2722D3A6');
+      var sessionRequest = new chrome.cast.SessionRequest(chrome.cast.media.DEFAULT_MEDIA_RECEIVER_APP_ID);
       var apiConfig = new chrome.cast.ApiConfig(sessionRequest,
         sessionListener,
         receiverListener);
