@@ -20,6 +20,15 @@ angular.module('diCastApp')
     $scope.player = {
       channel: null,
       volume : 25,
+      playing: false
+    };
+
+    $scope.play = function(){
+      $scope.player.playing = true;
+    };
+
+    $scope.pause = function(){
+      $scope.player.playing = false;
     };
 
 //    $scope.$watch('player.volumeSlider', function (newVal) {

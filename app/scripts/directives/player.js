@@ -11,27 +11,38 @@ angular.module('diCastApp')
     return {
       templateUrl: '/views/_player.html',
       scope      : {
-        volume: '=',
-        url   : '=',
+        volume : '=',
+        playing: '=',
       },
       restrict   : 'E',
       link       : function postLink(scope, element, attrs) {
         var swf = angular.element.find('object')[0]
           , deferredPlayer = Q.defer()
           , playerPromise = deferredPlayer.promise
+          , play = function () {
+              playerPromise.then(function () {
+                swf._play(channelService.channel().flashUrl);
+                scope.playing = true;
+              })
+            }
+          , pause = function () {
+              playerPromise.then(function () {
+                swf._pause();
+                scope.playing = false;
+              })
+            }
           ;
 
         window.playerReady = function () {
           deferredPlayer.resolve(true);
+          if (!scope.$$phase) scope.$digest();
         };
 
         scope.$watch(function () {
           return channelService.channel();
         }, function (newVal) {
           if (newVal !== null) {
-            playerPromise.then(function () {
-              swf._play(newVal.flashUrl);
-            })
+            play()
           }
         });
 
@@ -39,6 +50,14 @@ angular.module('diCastApp')
           playerPromise.then(function () {
             swf._setVolume(newVal);
           })
+        });
+
+        scope.$watch('playing', function (newVal) {
+          if (newVal === true) {
+            play();
+          } else if (newVal === false) {
+            pause();
+          }
         });
       }
     };
