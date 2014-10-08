@@ -19,8 +19,13 @@ angular.module('diCastApp')
 
     $scope.player = {
       channel: null,
-      volume: 0.5,
+      volume : 25,
     };
+
+//    $scope.$watch('player.volumeSlider', function (newVal) {
+//      $scope.player.volume = newVal / 100;
+//      $scope.player.element.volume = newVal / 100;
+//    });
 
     var initializeCastApi = function () {
       var sessionRequest = new chrome.cast.SessionRequest(chrome.cast.media.DEFAULT_MEDIA_RECEIVER_APP_ID);
@@ -38,7 +43,7 @@ angular.module('diCastApp')
       } else {
         initializeCastApi();
       }
-    }())
+    }());
 
     function receiverListener(e) {
       if (e === chrome.cast.ReceiverAvailability.AVAILABLE) {
@@ -78,18 +83,20 @@ angular.module('diCastApp')
 
     $scope.$watch('player.channel', function (newVal) {
       if (newVal) {
-        var url = 'http://pub1.di.fm/di_' + newVal
-          , mediaInfo = new chrome.cast.media.MediaInfo(url, 'audio/mpeg')
-          , request = new chrome.cast.media.LoadRequest(mediaInfo)
-          ;
+        channelService.setChannel(newVal)
+          .then(function (channel) {
+            var mediaInfo = new chrome.cast.media.MediaInfo(channel.castUrl, 'audio/mpeg')
+              , request = new chrome.cast.media.LoadRequest(mediaInfo)
+              ;
 
-        if ($scope.session) {
-          $scope.session.loadMedia(request,
-            onMediaDiscovered.bind(this, 'loadMedia'),
-            onMediaError);
-        }
+            if ($scope.session) {
+              $scope.session.loadMedia(request,
+                onMediaDiscovered.bind(this, 'loadMedia'),
+                onMediaError);
+            }
 
-        $scope.audioSrc = $sce.trustAsResourceUrl(url);
+//          $scope.audioSrc = $sce.trustAsResourceUrl(flashUrl);
+          });
       }
-    })
+    });
   });
