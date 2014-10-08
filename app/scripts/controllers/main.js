@@ -23,12 +23,8 @@ angular.module('diCastApp')
       playing: false
     };
 
-    $scope.play = function(){
-      $scope.player.playing = true;
-    };
-
-    $scope.pause = function(){
-      $scope.player.playing = false;
+    $scope.playPause = function(){
+      $scope.player.playing = !$scope.player.playing;
     };
 
 //    $scope.$watch('player.volumeSlider', function (newVal) {

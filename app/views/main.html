@@ -8,11 +8,11 @@
 </ui-select>
 <div id="hero">
   <input type="range" min="0" max="100" ng-model="player.volume"/>
-  <div id="play-pause">
-    <div class="play" ng-hide="player.playing" ng-click="play()"></div>
-    <div class="pause" ng-show="player.playing" ng-click="pause()"></div>
+  <div id="play-pause" ng-click="playPause()">
+    <div class="play" ng-hide="player.playing"></div>
+    <div class="pause" ng-show="player.playing"></div>
   </div>
   <!--<audio ng-src="{{audioSrc}}" controls autoplay></audio>-->
   <img src="http://placehold.it/350x350" id="channel-art" alt="channel art"/>
-  <player volume="player.volume / 100" playing="player.playing"></player>
+  <player volume="player.volume" playing="player.playing"></player>
 </div>

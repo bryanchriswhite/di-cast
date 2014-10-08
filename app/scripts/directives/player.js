@@ -46,9 +46,14 @@ angular.module('diCastApp')
           }
         });
 
+
+        var volumeTransform = function (x) {
+          return Math.pow((x / 100), Math.E) + 0.0099999;
+        };
+
         scope.$watch('volume', function (newVal) {
           playerPromise.then(function () {
-            swf._setVolume(newVal);
+            swf._setVolume(volumeTransform(newVal));
           })
         });
 
