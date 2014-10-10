@@ -337,7 +337,8 @@ module.exports = function (grunt) {
               '*.html',
               'views/{,*/}*.html',
               'images/{,*/}*.{webp}',
-              'fonts/*'
+              'fonts/*',
+              'assets/**/*'
             ]
           },
           {
@@ -351,7 +352,13 @@ module.exports = function (grunt) {
             cwd: 'bower_components/bootstrap/dist',
             src: 'fonts/*',
             dest: '<%= yeoman.dist %>'
-          }
+          },
+          {
+            expand: true,
+            cwd: 'extension-src',
+            dest: '<%= yeoman.dist %>',
+            src: ['**/*', '*']
+          },
         ]
       },
       styles: {
@@ -372,7 +379,7 @@ module.exports = function (grunt) {
       ],
       dist: [
         'stylus:compile',
-        'imagemin',
+//        'imagemin',
         'svgmin'
       ]
     },
