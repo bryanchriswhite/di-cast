@@ -9,7 +9,7 @@
 angular.module('diCastApp')
   .directive('player', function (channelService) {
     return {
-      templateUrl: '/views/_player.html',
+      templateUrl: 'views/_player.html',
       scope      : {
         volume : '=',
         playing: '=',

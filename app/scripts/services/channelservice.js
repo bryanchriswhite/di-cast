@@ -14,6 +14,7 @@ angular.module('diCastApp')
 
     this.list = function list() {
       return $http.get('http://listen.di.fm/public1')
+//      return $http.get('/public1')
     };
 
     this.setChannel = function(channelName){
@@ -21,10 +22,12 @@ angular.module('diCastApp')
 
       currentChannel = {
         name: channelName,
+//        flashUrl: 'https://localhost:9009/di_' + channelName ,//+ '_aac?type=.flv',
+//        castUrl: 'https://localhost:9009/di_' + channelName
         flashUrl: 'http://pub1.di.fm:80/di_' + channelName + '_aac?type=.flv',
         castUrl: 'http://pub1.di.fm/di_' + channelName
       };
-      deferred.resolve(true);
+      deferred.resolve(currentChannel);
 
       return deferred.promise;
     };
